@@ -8,6 +8,7 @@ def run():
         stub = service_pb2_grpc.SampleServiceStub(channel)
         response = stub.SayHello(service_pb2.HelloRequest(name='Yamada'))
     print('RECV : %s' % response.message)
+    print("%d" % len(response.ids))
 
 if __name__ == '__main__':
     run()

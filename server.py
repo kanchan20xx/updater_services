@@ -10,7 +10,8 @@ class ServiceBody(service_pb2_grpc.SampleServiceServicer):
         print("RECV : %s" % request.name)
         message = "Hello, %s !" % request.name
         print("SEND : %s" % message)
-        return service_pb2.HelloReply(message=message)
+        dstIds = {1,2,3}
+        return service_pb2.HelloReply(message=message, ids=dstIds)
 
 def serve():
     # Create grpc server.

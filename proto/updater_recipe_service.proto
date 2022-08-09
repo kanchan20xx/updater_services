@@ -1,0 +1,37 @@
+// バージョンの定義
+syntax = "proto3";
+// パッケージの定義(名前の衝突を防ぐためのもの)
+package updater_recipe;
+
+service UpdaterRecipeService {
+    rpc GetPackages() returns (GetPackagesReply);
+    rpc GetFileDetail(GetDiffDetailRequest) returns (GetDiffDetailReply);
+    rpc UpdateFileInfo(UpdateFileInfoRequest) returns ();
+}
+
+// モデル
+message Package{
+    string package_name = 1;
+}
+
+message UpdateFile {
+    string file_full_path = 1;
+}
+
+// サービス用に特化したmessage定義
+message GetPackagesReply {
+    repeated Package packages = 1;
+}
+
+message GetDiffDetailRequest {
+    UpdateFile update_file = 1;
+}
+
+message GetDiffDetailReply {
+    Package package = 1;
+}
+
+message UpdateFileInfoRequest {
+    UpdateFile update_file = 1;
+    Package target_package = 2;
+}

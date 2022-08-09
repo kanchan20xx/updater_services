@@ -2,6 +2,8 @@
 import grpc
 from proto import service_pb2
 from proto import service_pb2_grpc
+from proto import env_repo_service_pb2
+from proto import env_repo_service_pb2_grpc
 
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:
@@ -9,6 +11,13 @@ def run():
         response = stub.SayHello(service_pb2.HelloRequest(name='Yamada'))
     print('RECV : %s' % response.message)
     print("%d" % len(response.ids))
+    with grpc.insecure_channel('localhost:50051') as channel:
+        stub = env_repo_service_pb2_grpc.EnvRepoServiceStub(channel=channel)
+        #response = stub.GetEnvInfo(env_repo_service_pb2.GetEnvInfoReply())
+        response = stub.GetDiffFiles(env_repo_service_pb2.GetDiffFilesRequest(target_tag='V6.16.0'))
+        print(len(response.diff_files))
+        response = stub.GetTargetableTags(env_repo_service_pb2.Empty())
+        print(response.tags[0].tag_name)
 
 if __name__ == '__main__':
     run()

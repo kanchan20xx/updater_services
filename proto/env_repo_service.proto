@@ -1,0 +1,36 @@
+// バージョンの定義
+syntax = "proto3";
+// パッケージの定義(名前の衝突を防ぐためのもの)
+package env_repo;
+
+service EnvRepoService {
+    rpc GetEnvInfo(Empty) returns (GetEnvInfoReply);
+    rpc GetTargetableTags(Empty) returns (GetTargetableTagsReply);
+    rpc GetDiffFiles(GetDiffFilesRequest) returns (GetDiffFilesReply);
+}
+
+message Empty {
+}
+
+message GetEnvInfoReply {
+    string repository_path = 1;
+    string latest_released_tag = 2;
+}
+
+message GetTargetableTagsReply {
+    message Tag {
+        string tag_name = 1;
+    }
+    repeated Tag tags = 1;
+}
+
+message GetDiffFilesRequest {
+    string target_tag = 1;
+}
+
+message GetDiffFilesReply {
+    message DiffFile {
+        string file_full_path = 1;
+    }
+    repeated DiffFile diff_files = 1;
+}

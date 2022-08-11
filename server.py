@@ -4,6 +4,7 @@ from concurrent import futures
 import grpc
 import sample_service
 import env_repo_service
+import updater_recipe_service
 
 def serve():
     # Create grpc server.
@@ -11,6 +12,7 @@ def serve():
     # Add handler.
     sample_service.RegisterGrpcServer(server)
     env_repo_service.RegisterGrpcServer(server)
+    updater_recipe_service.RegisterGrpcServer(server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()

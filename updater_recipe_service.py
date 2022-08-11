@@ -11,7 +11,7 @@ class UpdaterRecipeService(updater_recipe_service_pb2_grpc.UpdaterRecipeServiceS
     def GetPackages(self, request, context):
         dst_packages = []
         for package in recipes.keys():
-            dst_packages.append(updater_recipe_service_pb2.GetPackagesReply(package_name=package))
+            dst_packages.append(updater_recipe_service_pb2.Package(package_name=package))
         return updater_recipe_service_pb2.GetPackagesReply(packages=dst_packages)
     def GetFileInPackage(self, request, context):
         tag = request.package_name
@@ -21,5 +21,5 @@ class UpdaterRecipeService(updater_recipe_service_pb2_grpc.UpdaterRecipeServiceS
         return updater_recipe_service_pb2.GetFileInPackageReply(file_paths)
 
 def RegisterGrpcServer(grpc_server):
-    updater_recipe_service_pb2.add_EnvRepoServiceServicer_to_server(UpdaterRecipeService(), server=grpc_server)
+    updater_recipe_service_pb2_grpc.add_UpdaterRecipeServiceServicer_to_server(UpdaterRecipeService(), server=grpc_server)
     return

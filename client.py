@@ -25,6 +25,7 @@ def run():
         response = stub.GetPackages(updater_recipe_service_pb2.Empty())
         for responsed_pkg in response.packages:
             print(responsed_pkg.package_name)
+            print(responsed_pkg.files)
 
 if __name__ == '__main__':
     run()

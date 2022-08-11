@@ -4,9 +4,13 @@ syntax = "proto3";
 package updater_recipe;
 
 service UpdaterRecipeService {
-    rpc GetPackages() returns (GetPackagesReply);
+    rpc GetPackages(Empty) returns (GetPackagesReply);
     rpc GetFileDetail(GetDiffDetailRequest) returns (GetDiffDetailReply);
-    rpc UpdateFileInfo(UpdateFileInfoRequest) returns ();
+    rpc UpdateFileInfo(UpdateFileInfoRequest) returns (Empty);
+}
+
+// 引数なし用
+message Empty {
 }
 
 // モデル
